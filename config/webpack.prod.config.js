@@ -12,7 +12,7 @@ process.env.NODE_ENV = 'production';
 
 module.exports = webpackMerge(baseConfig, {
   output: {
-    publicPath: '/frontend/',
+    publicPath: '/frontend/admin/',
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].bundle.[hash:7].js',
     chunkFilename: 'chunks/[name].chunk.[hash:7].js',
@@ -64,7 +64,7 @@ module.exports = webpackMerge(baseConfig, {
       manifest: require(path.resolve(__dirname, '../vendor/manifest.json')),
     }),
     new AddAssetHtmlPlugin({
-      publicPath: '/frontend/vendor/',
+      publicPath: '/frontend/admin',
       filepath: require.resolve('../vendor/vendors.dll.js'),
       includeSourcemap: false,
     })
