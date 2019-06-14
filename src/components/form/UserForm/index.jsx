@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, InputNumber, Button, Radio, Col } from 'antd';
+import { UserRole } from '../../../models/user';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -53,10 +54,16 @@ class UserForm extends React.PureComponent {
     const emailDecorator = getFieldDecorator('email', {
       initialValue: user.user_info.email,
       rules: [
-        { required: true, whitespace: true, message: '请填写邮箱' },
+        { whitespace: true, message: '请填写邮箱' },
         { type: 'email', message: '请输入正确的邮箱地址' }
       ]
     });
+    const roleDecorator = getFieldDecorator('role',{
+      initialValue: user.role,
+      rules: [
+        { required: true, message: '请选择角色'}
+      ]
+    })
     const genderDecorator = getFieldDecorator('gender', {
       initialValue: user.gender ? 'male' : 'female',
       rules: [
@@ -66,8 +73,11 @@ class UserForm extends React.PureComponent {
     const stuIdDecorator = getFieldDecorator('stu_id', {
       initialValue: user.user_info.stu_id
     });
-    const schoolDecorator = getFieldDecorator('school', {
-      initialValue: user.user_info.school
+    const githubDecorator = getFieldDecorator('phone', {
+      initialValue: user.user_info.phone
+    });
+    const blogDecorator = getFieldDecorator('situation', {
+      initialValue: user.user_info.situation
     });
     const collegeDecorator = getFieldDecorator('college', {
       initialValue: user.user_info.college
@@ -98,6 +108,14 @@ class UserForm extends React.PureComponent {
             <Input size="default" placeholder="邮箱" />
           )}
         </FormItem>
+        <FormItem {...formItemLayout} label="角色">
+          {roleDecorator(
+            <RadioGroup>
+              <Radio value={UserRole.STUDENT}>学生</Radio>
+              <Radio value={UserRole.ADMIN}>管理员</Radio>
+            </RadioGroup>
+          )}
+        </FormItem>
         <FormItem {...formItemLayout} label="性别">
           {genderDecorator(
             <RadioGroup>
@@ -106,14 +124,19 @@ class UserForm extends React.PureComponent {
             </RadioGroup>
           )}
         </FormItem>
+        <FormItem {...formItemLayout} label="GitHub">
+          {githubDecorator(
+            <Input size="default" placeholder="GitHub" />
+          )}
+        </FormItem>
+        <FormItem {...formItemLayout} label="Blog">
+          {blogDecorator(
+            <Input size="default" placeholder="Blog" />
+          )}
+        </FormItem>
         <FormItem {...formItemLayout} label="学号">
           {stuIdDecorator(
             <Input size="default" placeholder="学号" />
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label="学校">
-          {schoolDecorator(
-            <Input size="default" placeholder="学校" />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="学院">
